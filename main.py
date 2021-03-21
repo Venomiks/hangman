@@ -1,20 +1,28 @@
 import random
-import os
 
-passwords = []
 
-while True:
-    phrases = input("Please press enter to add phrases: ")
-    passwords.append(phrases)
-    choice = input("would you like to start the game? yes/no: ")
-    #State machine
-    if choice != 'no':
-        break
+def make_password_list():
+    passwords = []
+    while True:
+        # adding .strip() to it to get rid of any newline characters that may be there
+        password = input("Please enter a password to add: ").strip()
+        passwords.append(password)
+
+        # made language more clear,
+        # stripped it for reasons above,
+        # made it lowercase for case-insensitivity
+        choice = input("finished adding passwords? yes/no: ").strip().lower()
+        if choice == 'yes':
+            break
+    return passwords
+
+
+passwords = make_password_list()
 Random_choice = random.choice(passwords)
 print('_' * len(Random_choice))
 guess = input("What's your guess?:")
 
-os.system('cls')
+
 #Checking if there is a letter in phrase
 def letter_placeing():
     for Random_choice in guess:
@@ -29,7 +37,11 @@ if guess == Random_choice:
 else:
     def hang_man():
         Word = 'hangman'
-        for guess in Word:
+        for letter in Word:
             if guess not in Random_choice:
-                print(Word)
+                print(letter)
+                return letter
+
+
+
 hang_man()
